@@ -32,7 +32,7 @@ var sum = function(array) {
 var arraySum = function(array) { // [2]
   if(array.length === 0) {
 	return 0;
-  }  
+  }
   if(Array.isArray(array[0])) {
     return arraySum(array[0]) + arraySum(array.slice(1));
   } else {
@@ -59,7 +59,7 @@ var sumBelow = function(n) {
 	}
 	if(n > 0) {
 		return (n - 1) + sumBelow(n - 1);
-	} 
+	}
 	else if (n < 0) {
 		return (n + 1) + sumBelow(n + 1);
 	}
@@ -83,14 +83,14 @@ var range = function(x, y) {
 // 8^2 = 8 x 8 = 64. Here, 8 is the base and 2 is the exponent.
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
-var exponent = function(base, exp) { 
+var exponent = function(base, exp) {
 	if(exp === 0 || base === 1){
 		return 1;
 	}
 	if(exp < 0) {
-		return 1 / exponent(base, -exp); 
+		return 1 / exponent(base, -exp);
 	} else if(exp % 2 === 0) {
-	  var y = exponent(base, exp / 2); 
+	  var y = exponent(base, exp / 2);
    	  return y * y;
 	} else {
 		return base * exponent(base, exp - 1);
@@ -136,12 +136,82 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  if( x === 0 && y === 0){
+    return NaN;
+  } else if(x === 0){
+    return 0;
+  }
+   if(x < 0 && y < 0){
+    if((x - y) - y > 0){
+      if(x > y){
+        return x;
+      }
+      return x - y;
+    } else if(x - y < 0){
+      return modulo((x-y), y)
+    }
+  }
+  if(x < 0){
+  	if(x + y === 0){
+  		return 0;
+  	} else if(-x < y){
+      return x;
+    }
+  	return modulo((x + y), y);
+  }
+  else if(x - y < 0){
+    return x;
+  }
+  else if((x - y) - y < 0){
+    return x - y;
+  }
+    return modulo((x-y), y);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
-};
+  if(x === 0 || y === 0){
+    return 0;
+  }
+  if(y < 0 ) {
+    return - x + multiply(x, y + 1);
+  } else {
+    return x + multiply(x, y - 1);
+  }
+}
+// below worked but there were too many arguments for the test -
+// var multiply = function(x, y, index, answer, isNegative) {
+  // if(x === 0 || y === 0){
+  //   return 0;
+  // }
+  // if(y < 0 && x > 0){
+  //   var isNegative = true;
+  //   y = -(y);
+  // }
+
+  // if(index === undefined){
+  //   var answer = x;
+  //   var index = 1;
+  // }
+
+  // if(index === y || -(index) === y){
+  //   if(isNegative){
+  //     return -(answer);
+  //   }
+  //   if(x < 0 && y < 0){
+  //      return -(answer);
+  //   }
+  //   return answer;
+  // }
+  // answer += x;
+
+  // if(index === y){
+  //   return answer;
+  // } else {
+  //   index += 1
+  //   return multiply(x, y, index, answer, isNegative);
+  // }
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
